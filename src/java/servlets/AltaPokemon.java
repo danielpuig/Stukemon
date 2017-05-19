@@ -57,15 +57,6 @@ public class AltaPokemon extends HttpServlet {
             String trainer = request.getParameter("entrenador");
 
             Pokemon p = new Pokemon(name, type, ability, atk, def, spd, hp, 0);
-            
-            out.println(p.getName());
-            out.println(p.getType());
-            out.println(p.getAbility());
-            out.println(p.getAttack());
-            out.println(p.getDefense());
-            out.println(p.getSpeed());
-            out.println(p.getLife());
-            
             Trainer t = miEjb.findTrainer(trainer);
             p.setTrainer(t);
             if (miEjb.hasSixPokemon(miEjb.findTrainer(t.getName()))) {
