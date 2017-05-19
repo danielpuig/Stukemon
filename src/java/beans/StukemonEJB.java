@@ -119,6 +119,10 @@ public class StukemonEJB {
         return emf.createEntityManager().createNamedQuery("Pokemon.findByTrainer").setParameter("trainer", t).getResultList();
     }
     
+    public List<Pokemon> getPokemonRanking() {
+        return emf.createEntityManager().createNamedQuery("Pokemon.findAllOrderRanking").getResultList();
+    }
+    
     public void updatePoke(Pokemon p) {
         EntityManager em = emf.createEntityManager();
         em.merge(p);
