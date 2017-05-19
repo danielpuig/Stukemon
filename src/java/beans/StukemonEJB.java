@@ -71,6 +71,10 @@ public class StukemonEJB {
         return pokeEncontrado != null;
     }
     
+    public List<Trainer> selectAllTrainers() {
+        return emf.createEntityManager().createNamedQuery("Trainer.findAll").getResultList();
+    }
+    
     public List<Trainer> selectAllTrainersWithPoke(){
         List<Trainer> listTrainer = emf.createEntityManager().createNamedQuery("Trainer.findAll").getResultList();
         List<Trainer> retTrainer = new ArrayList<>();
