@@ -51,6 +51,19 @@ public class StukemonEJB {
         return false;
     }
     
+    public boolean deletePoke(String name) {
+        Pokemon p = findPokemon(name);
+        EntityManager em = emf.createEntityManager();
+        Pokemon pokeEncontrado = em.find(Pokemon.class, p.getName());
+        if (existsPoke(pokeEncontrado)) {
+
+            em.remove(pokeEncontrado);
+            em.close();
+            return true;
+        }
+        return false;
+    }
+    
     public boolean existsPoke(Pokemon p) {
         EntityManager em = emf.createEntityManager();
         Pokemon pokeEncontrado = em.find(Pokemon.class, p.getName());
@@ -69,8 +82,16 @@ public class StukemonEJB {
         return retTrainer;
     }
     
+    public List<Pokemon> selectAllPokemon() {
+        return emf.createEntityManager().createNamedQuery("Pokemon.findAll").getResultList();
+    }
+    
     public Trainer findTrainer(String name) {
         return (Trainer) emf.createEntityManager().createNamedQuery("Trainer.findByName").setParameter("name", name).getSingleResult();
+    }
+    
+    public Pokemon findPokemon(String name) {
+        return (Pokemon) emf.createEntityManager().createNamedQuery("Pokemon.findByName").setParameter("name", name).getSingleResult();
     }
     
     public boolean hasSixPokemon(Trainer t) {
